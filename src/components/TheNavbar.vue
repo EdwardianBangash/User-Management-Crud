@@ -27,6 +27,6 @@ export default {
 }
 
 .navbar{
-    background-color: rgba(107, 105, 105, 0.703);
+    background-color: rgba(235, 231, 231, 0.703);
 }
 </style>

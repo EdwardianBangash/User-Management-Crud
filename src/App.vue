@@ -4,9 +4,7 @@
 </template>
 
 <script>
-import { RouterLink, RouterView } from "vue-router";
 import TheNavbar  from "./components/TheNavbar.vue";
-
 export default {
   components: {
     "the-navbar": TheNavbar,

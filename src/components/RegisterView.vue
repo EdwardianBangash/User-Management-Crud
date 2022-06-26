@@ -47,6 +47,9 @@
 </template>
 
 <script>
+import axios from 'axios'
+// axios.defaults.baseUrl = 'http://127.0.0.1:8000/api/'
+
 export default {
   data() {
     return {
@@ -57,7 +60,20 @@ export default {
     };
   },
   methods: {
-    register() {},
+    register() {
+      axios.post("http://127.0.0.1:8000/api/register", {
+          name: this.fullname,
+          email: this.email,
+          password: this.password,
+          confirm_password: this.confirm_password,
+        })
+        .then((response) => {
+            console.log(response)
+        })
+        .catch((error) => {
+            console.log(error)
+        });
+    },
   },
 };
 </script>
