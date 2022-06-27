@@ -1,6 +1,6 @@
 <template>
-  <the-navbar></the-navbar>
-  <router-view></router-view>
+  <the-navbar :user="fullname"></the-navbar>
+  <router-view :user="fullname"></router-view>
 </template>
 
 <script>
@@ -9,6 +9,19 @@ export default {
   components: {
     "the-navbar": TheNavbar,
   },
+  data(){
+    return { 
+      isAuthenticated : null,
+      fullname : null
+    }
+  },
+  created(){
+    this.isAuthenticated = localStorage.getItem('token');
+    this.fullname = localStorage.getItem('fullname');
+    if(!this.isAuthenticated){
+      this.$router.push('/login');
+    }
+  }
 };
 </script>
 
