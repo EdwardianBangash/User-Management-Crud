@@ -48,8 +48,6 @@
 
 <script>
 import axios from 'axios'
-// axios.defaults.baseUrl = 'http://127.0.0.1:8000/api/'
-
 export default {
   data() {
     return {
@@ -61,7 +59,7 @@ export default {
   },
   methods: {
     register() {
-      axios.post("http://127.0.0.1:8000/api/register", {
+      axios.post("register", {
           name: this.fullname,
           email: this.email,
           password: this.password,

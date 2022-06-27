@@ -51,7 +51,7 @@ export default {
       if (!result) {
         return false
       }
-      axios.post("http://127.0.0.1:8000/api/login", {
+      axios.post("login", {
           email: this.email,
           password: this.password
         })
@@ -59,7 +59,7 @@ export default {
           console.log(response)
            localStorage.setItem("token", response.data.token)
            localStorage.setItem("fullname", response.data.user.name)
-           this.$router.push('/')
+           this.$router.push("/")
         })
         .catch((error) => {
             console.log(error)
