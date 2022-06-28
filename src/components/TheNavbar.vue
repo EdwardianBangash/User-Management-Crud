@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light">
     <router-link class="navbar-brand" to="/">Logify</router-link>
-    <div class="collapse navbar-collapse btn" v-if="user">
+    <div class="collapse navbar-collapse btn" v-if="loggedInUser">
       <ul class="navbar-nav">
-        <p class="pt-2">Welcome, {{ user }}</p>
+        <p class="pt-2">Welcome, {{ loggedInUser }}</p>
         <li class="nav-item">
           <a href="javascript:void(0)" class="nav-link" @click="logout"
             >Logout</a
@@ -26,7 +26,11 @@
 
 <script>
 export default {
-  props: ["user"],
+  computed:{
+    loggedInUser(){
+      return this.$store.getters.user;
+    }
+  },
   methods: {
     logout() {
       localStorage.removeItem('token')

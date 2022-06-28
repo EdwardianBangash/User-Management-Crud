@@ -1,10 +1,14 @@
 <template>
-  <h2 class="text-center" v-if="user">Welcome , {{user}}</h2>
+  <h2 class="text-center" v-if="loggedInUser">Welcome , {{loggedInUser}}</h2>
 </template>
 
 <script>
 export default {
-  props: ['user']
+  computed: { 
+    loggedInUser(){
+      return this.$store.getters.user;
+    }
+  }
 };
 </script>
 
