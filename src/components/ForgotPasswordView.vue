@@ -1,7 +1,7 @@
 <template>
   <div class="form-wrapper">
-    <form @submit.prevent="login">
-      <h3 class="text-center">Login To Continue</h3>
+    <form @submit.prevent="forgotPassword">
+      <h3 class="text-center">Reset Password</h3>
       <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
         <input
@@ -12,18 +12,8 @@
         />
         <small class="text-danger" v-if="v$.email.$error">{{v$.$errors[0].$message}}</small>
       </div>
-      <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          placeholder="Password"
-          v-model="password"
-        />
-        <small class="text-danger" v-if="v$.password.$error">{{v$.$errors[1].$message}}</small>
-      </div>
       <div class="mt-2 mb-2">
-        <router-link to="forgotPassword">Forgot Password</router-link>
+        Please Provide Email, Password Reset Email will be sent to you
       </div>
       <button type="submit" class="btn btn-primary">Login Me</button>
     </form>
@@ -38,23 +28,21 @@ export default {
   data() {
     return {
       v$: useVuelidate(),
-      email: "",
-      password: "",
+      email: ""
     };
   },
   validations () {
     return {
-      email: { required, email },
-      password: { required }
+      email: { required, email }
     }
   },
   methods: {
-    async login() {
+    async forgotPassword(){
       const result = await this.v$.$validate()
       if (!result) {
         return false
       }
-      axios.post("login", {
+      axios.post("forgotPassword", {
           email: this.email,
           password: this.password
         })
@@ -68,7 +56,7 @@ export default {
         .catch((error) => {
             console.log(error)
         });
-    },
+    }
   },
 };
 </script>

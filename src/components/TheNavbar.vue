@@ -34,7 +34,7 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem('token')
-      localStorage.removeItem('fullname')
+      this.$store.dispatch('user', null)
       this.$router.push('login')
     },
   },
