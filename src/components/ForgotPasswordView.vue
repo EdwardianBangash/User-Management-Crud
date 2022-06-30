@@ -15,6 +15,7 @@
       <div class="mt-2 mb-2">
         Please Provide Email, Password Reset Email will be sent to you
       </div>
+      <div v-if="error" class="text-danger mb-2">{{errorMessage}}</div>
       <button type="submit" class="btn btn-primary">Login Me</button>
     </form>
   </div>
@@ -28,7 +29,9 @@ export default {
   data() {
     return {
       v$: useVuelidate(),
-      email: ""
+      email: "",
+      error: false,
+      errorMessage: null
     };
   },
   validations () {
@@ -44,17 +47,13 @@ export default {
       }
       axios.post("forgotPassword", {
           email: this.email,
-          password: this.password
         })
         .then((response) => {
-            console.log(response)
            localStorage.setItem("token", response.data.token)
-          //  localStorage.setItem("fullname", response.data.user.name)
-           this.$store.dispatch('user', response.data.user.name)
-           this.$router.push("/")
         })
         .catch((error) => {
-            console.log(error)
+            this.error = true
+            this.errorMessage = error.response.data.error
         });
     }
   },
