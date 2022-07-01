@@ -15,7 +15,7 @@
       <div class="mt-2 mb-2">
         Please Provide Email, Password Reset Email will be sent to you
       </div>
-      <div v-if="error" class="text-danger mb-2">{{errorMessage}}</div>
+      <div v-if="responseMessage" :class="style" class="mb-2">{{responseMessage}}</div>
       <button type="submit" class="btn btn-primary">Login Me</button>
     </form>
   </div>
@@ -30,8 +30,8 @@ export default {
     return {
       v$: useVuelidate(),
       email: "",
-      error: false,
-      errorMessage: null
+      responseMessage: null,
+      style: ''
     };
   },
   validations () {
@@ -49,11 +49,15 @@ export default {
           email: this.email,
         })
         .then((response) => {
-           localStorage.setItem("token", response.data.token)
+          const token = response.data.token
+           localStorage.setItem("token", token)
+           this.$store.commit('token', token);
+           this.style = 'text-info'
+           this.responseMessage = response.data.success
         })
         .catch((error) => {
-            this.error = true
-            this.errorMessage = error.response.data.error
+            this.responseMessage = error.response.data.error
+            this.style = "text-danger"
         });
     }
   },
