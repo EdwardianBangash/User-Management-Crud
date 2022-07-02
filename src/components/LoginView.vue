@@ -61,7 +61,6 @@ export default {
         .then((response) => {
             console.log(response)
            localStorage.setItem("token", response.data.token)
-          //  localStorage.setItem("fullname", response.data.user.name)
            this.$store.dispatch('user', response.data.user.name)
            this.$router.push("/")
         })

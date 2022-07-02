@@ -4,7 +4,6 @@ import LoginView from '../components/LoginView.vue'
 import RegisterView from '../components/RegisterView.vue'
 import ForgotPasswordView from '../components/ForgotPasswordView.vue'
 import ChangePassword from '../components/ChangePassword.vue'
-import auth from './middlewares/Auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,9 +32,9 @@ const router = createRouter({
       path: '/changePassword',
       name: 'ChangePassword',
       component: ChangePassword,
-      meta: {
-      middleware: auth,
-     },
+      props(route){
+        return route.query || {}
+      }
     },
   ]
 })

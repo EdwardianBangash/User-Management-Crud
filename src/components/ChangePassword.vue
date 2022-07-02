@@ -1,6 +1,6 @@
 <template>
   <div class="form-wrapper">
-    <form @submit.prevent="changePassword">
+    <form @submit.prevent="resetPassword">
       <h3 class="text-center">Reset Password</h3>
       <div class="form-group">
         <label for="exampleInputPassword1">New Password</label>
@@ -33,6 +33,7 @@ import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import axios from 'axios'
 export default {
+  props: ['email', 'token'],
   data() {
     return {
       v$: useVuelidate(),
@@ -49,16 +50,16 @@ export default {
     }
   },
   methods: {
-    async changePassword(){
+    async resetPassword(){
       const result = await this.v$.$validate()
       if (!result) {
         return false
       }
-      axios.post("changePassword", {
+      axios.post("resetPassword", {
           password: this.password,
           confirm_password: this.confirm_password,
-          email: this.$route.params.email,
-          token: this.$route.params.token
+          email: this.$route.query.email,
+          token: this.$route.query.token
         })
         .then((response) => {
           const token = response.data.token
@@ -66,6 +67,7 @@ export default {
            this.$store.commit('token', token);
            this.style = 'text-info'
            this.responseMessage = response.data.success
+           this.$route.push('/')
         })
         .catch((error) => {
             this.responseMessage = error.response.data.error
